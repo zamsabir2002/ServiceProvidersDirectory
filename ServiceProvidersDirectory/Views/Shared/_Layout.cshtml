@@ -1,0 +1,111 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ServiceProvidersDirectory</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ServiceProvidersDirectory.styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm mb-3 bg-opacity-0">
+
+            <nav class="navbar navbar-expand-lg bg-body-tertiary w-100 justify-content-between">
+
+                <div class="container-fluid justify-content-between">
+                    <a class="navbar-brand d-flex align-items-center " href="/">
+                        <img src="/img/logo.png" width="30" height="30" alt="">
+                        <span class="d-none d-sm-inline ms-1"> Cardinal Services </span>
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
+                            @if (User.Identity.IsAuthenticated && @User.FindFirst("RoleId")?.Value != "4")
+                            {
+                                <!-- for hospital/Dept admins -->
+                                @if (@User.FindFirst("RoleId")?.Value != "1")
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a class="bg-primary text-white rounded-3 nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Actions
+                                        </a>
+                                        <ul class="dropdown-menu end-0" style="left: auto;">
+                                            <li><a class="dropdown-item" href="#">Manage Users</a></li>
+                                            <li><a class="dropdown-item" href="#">Manage Requests</a></li>
+                                            <li><a class="dropdown-item" href="/Services">Manage Services</a></li>
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a class="bg-primary text-white rounded-3 nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Actions
+                                        </a>
+                                        <ul class="dropdown-menu end-0" style="left: auto;">
+                                            <li><a class="dropdown-item" href="#">Manage Users</a></li>
+                                            <li><a class="dropdown-item" href="#">Manage Requests</a></li>
+                                            <li><a class="dropdown-item" href="/Services">Manage Services</a></li>
+                                            <li><a class="dropdown-item" href="#">Manage Requests</a></li>
+                                            <li><a class="dropdown-item" href="#">Add Service Porviders</a></li>
+                                        </ul>
+                                    </li>
+                                    
+                                }
+
+                            }
+                            <li class="nav-item dropdown">
+                                <a class="bg-primary text-white rounded-3 nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @(User.Identity.Name)
+                                </a>
+                                <ul class="dropdown-menu end-0" style="left: auto;">
+                                    <!--
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    -->
+                                    <li><a class="dropdown-item" href="/Accounts/Logout">LogOut</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - ServiceProvidersDirectory - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

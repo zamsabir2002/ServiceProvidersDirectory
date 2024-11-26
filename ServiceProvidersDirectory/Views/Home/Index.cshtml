@@ -1,0 +1,175 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .search-container{
+        border:none;
+    }
+    #service-container {
+        padding: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 5px;
+        border:none;
+        background: white;
+    }
+
+    #service-container input {
+        flex-grow: 1;
+        min-width: 150px;
+    }
+
+    #service-dropdown {
+        position: absolute;
+        z-index: 1050;
+    }
+
+    .badge button {
+        border: none;
+        padding: 0;
+    } 
+    
+    #service-search {
+        border: none;
+        background: transparent;
+    }
+
+    #service-search:focus {
+        border: none;
+    }
+
+    .each-service{
+        border-radius: 0.3rem;
+        padding: 0;
+        height: 30px;
+        font-weight: 400;
+        color: #fff;
+        text-decoration: none;
+        vertical-align: middle;
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+        font-size: 0.8rem;
+        vertical-align:middle;
+        display:flex;
+        align-items: center;
+        gap: 10px;
+        padding: 1%;
+    }
+
+    .each-service button{
+        padding: 0;
+        font-size: inherit;
+    }
+
+
+    #service-container {
+        position: relative;
+        max-width: 100%;
+    }
+
+    .selected-services {
+        display: flex;
+        flex-wrap: wrap;
+        z-index: 1;
+    }
+
+    .badge {
+        background-color: #007bff;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        margin: 3px;
+    }
+
+    #service-dropdown {
+        z-index: 9999;
+        position: absolute;
+        width: 100%;
+        max-height: 200px;
+        overflow-y: auto;
+        display: none;
+        top: 100%;
+    }
+
+</style>
+
+<div class="container-fluid p-xl-5 py-lg-5" >
+
+    <!-- Initial Headings -->
+    <div>
+        <h1 class="display-2 fw-bold">Discover</h1>
+        <h3 class="fw-light">Best Rehabilation Centers Near You</h3>
+    </div>
+
+    <!-- search box and filter -->
+    <div class="d-flex gap-5 align-items-start flex-md-nowrap flex-wrap" style="height:102px;">
+
+        <div class="search-container bg-white border border-1 p-2 rounded-2 px-3" style="width: 100%; max-width: 45%; position: relative;">
+            <label id="search-service-label" for="service-search" class="form-label fw-bold" style="">
+                Choose Services
+            </label>
+            <div id="service-container" class="d-flex flex-wrap align-items-center py-2 px-0" style="min-height: 50px; gap: 5px;">
+                <div class="selected-services" style="font-size: 0.9rem;">
+                    <!-- Selected Services Container -->
+                </div>
+                <input id="service-search" type="text" class="border-0 flex-grow-1" placeholder="Type to search..." autocomplete="off" style="outline: none; background: none; flex-shrink: 0; min-width: 150px;">
+            </div>
+            <div id="service-dropdown" class="dropdown-menu w-100 position-absolute" style="max-height: 200px; overflow-y: auto; display: none; z-index: 1050; border: 1px solid #ddd; border-radius: 8px; top: 80px; left: 0; background-color: #fff;"></div>
+        </div>
+
+        <div class="d-flex flex-column border border-1 p-2 rounded-2 align-items-center gap-3 px-4" style="">
+            <div class="d-flex gap-2 fw-bold p-1">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="searchFilter" id="filter-postcode" value="postcode">
+                    <label class="form-check-label" for="filter-postcode">Post code</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="searchFilter" id="filter-hospital" value="hospital" checked>
+                    <label class="form-check-label" for="filter-hospital">Hospital</label>
+
+                </div>
+            </div>
+            <input id="hospital-search" type="text" class="form-control p-1" placeholder="e.g. Admiral Hospital" style="max-width: 250px;">
+        </div>
+
+        <div class="h-100">
+            <button id="search-button" class="btn btn-primary h-100 border-0 d-flex flex-nowrap align-items-center gap-2">
+                <span>
+                    <i class="bi bi-search"></i>
+                </span>Search
+            </button>
+        </div>
+
+    </div>
+
+
+
+
+
+    @*
+
+    <div class="form-group">
+        <label for="service-search">Choose Services</label>
+        <div class="dropdown">
+            <div 
+                class="form-control d-flex flex-wrap flex-column align-items-start" 
+                id="service-container" 
+                style="">
+                <div id="selected-service" class="d-flex">
+
+                </div>
+                <!-- Selected services will appear here -->
+                <input type="text" id="service-search" class="border-0 " placeholder="Search for services" autocomplete="off" />
+            </div>
+            <div id="service-dropdown" class="dropdown-menu w-100 mt-1" style="max-height: 200px; overflow-y: auto;">
+                <!-- Services will be dynamically populated here -->
+            </div>
+        </div>
+    </div>
+    *@
+
+</div>
+
+
