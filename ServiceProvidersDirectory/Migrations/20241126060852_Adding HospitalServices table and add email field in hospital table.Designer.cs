@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ServiceProvidersDirectory.Data;
 
@@ -11,9 +12,11 @@ using ServiceProvidersDirectory.Data;
 namespace ServiceProvidersDirectory.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241126060852_Adding HospitalServices table and add email field in hospital table")]
+    partial class AddingHospitalServicestableandaddemailfieldinhospitaltable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,10 +51,6 @@ namespace ServiceProvidersDirectory.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -65,35 +64,6 @@ namespace ServiceProvidersDirectory.Migrations
                     b.HasIndex("UpdatedById");
 
                     b.ToTable("Hospitals");
-                });
-
-            modelBuilder.Entity("ServiceProvidersDirectory.Models.HospitalService", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("HospitalId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ServiceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("UpdatedById")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HospitalId");
-
-                    b.HasIndex("ServiceId");
-
-                    b.HasIndex("UpdatedById");
-
-                    b.ToTable("HospitalServices");
                 });
 
             modelBuilder.Entity("ServiceProvidersDirectory.Models.RequestType", b =>
@@ -679,31 +649,6 @@ namespace ServiceProvidersDirectory.Migrations
                         .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("UpdatedBy");
-                });
-
-            modelBuilder.Entity("ServiceProvidersDirectory.Models.HospitalService", b =>
-                {
-                    b.HasOne("ServiceProvidersDirectory.Models.Hospital", "Hospital")
-                        .WithMany()
-                        .HasForeignKey("HospitalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ServiceProvidersDirectory.Models.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ServiceProvidersDirectory.Models.User", "UpdatedBy")
-                        .WithMany()
-                        .HasForeignKey("UpdatedById");
-
-                    b.Navigation("Hospital");
-
-                    b.Navigation("Service");
 
                     b.Navigation("UpdatedBy");
                 });

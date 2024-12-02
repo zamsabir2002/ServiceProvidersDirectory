@@ -192,7 +192,7 @@ $(document).ready(function () {
 
         // Perform search
         $.ajax({
-            url: `/api/Hospitals/search`,
+            url: `/Search/SearchCenters`,
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
@@ -201,7 +201,12 @@ $(document).ready(function () {
                 query: searchQuery
             }),
             success: function (data) {
-                alert(`Found ${data.length} hospitals.`);
+                if (data.redirectUrl) {
+                    window.location.href = data.redirectUrl;
+                } else {
+                    console.log(data);
+                    alert("No redirect URL provided.");
+                }
             },
             error: function () {
                 alert("Error performing search.");

@@ -22,6 +22,9 @@ namespace ServiceProvidersDirectory.Data
         public DbSet<SPServiceReferral> SPServiceReferrals => Set<SPServiceReferral>();
         public DbSet<SPServiceReferralAT> SPServiceReferralATs => Set<SPServiceReferralAT>();
 
+        public DbSet<HospitalService> HospitalServices => Set<HospitalService>();
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 

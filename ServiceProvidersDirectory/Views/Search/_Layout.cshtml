@@ -45,7 +45,7 @@
                                         </a>
                                         <ul class="dropdown-menu end-0" style="left: auto;">
                                             <li><a class="dropdown-item" href="#">Manage Users</a></li>
-                                            <li><a class="dropdown-item" href="/Hospitals/Details/@(User.FindFirstValue("HospitalId"))">My Hospital</a></li>
+                                            <li><a class="dropdown-item" href="/Hospitals">My Hospital</a></li>
                                             <li><a class="dropdown-item" href="/Services">Manage Services</a></li>
                                         </ul>
                                     </li>
@@ -93,8 +93,8 @@
 
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="">
+        <main role="main">
             @RenderBody()
         </main>
     </div>

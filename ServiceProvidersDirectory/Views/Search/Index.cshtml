@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ServiceProvidersDirectory.Models.HospitalService>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@{
+    string title = "";
+
+    if ((ViewBag.query == "" || ViewBag.query == null))
+    {
+        title = ViewBag.filterType == "hospital" ? "Hospital" : "PostCode";
+    }
+    else if (ViewBag.filterType == "hospital")
+    {
+        title = "Hospital: \"" + ViewBag.query + "\"";
+    }
+    else if (ViewBag.filterType == "postcode")
+    {
+        title = "PostCode: \"" + ViewBag.query + "\"";
+    }
+}
+
+
+<div class="bg-light px-5 py-4" style="min-height: calc(100dvh - 80px - 60.800px - 10px);">
+
+    <h3>Services by @(title) </h3>
+    <a href="/" class="text-decoration-none mb-2"> &lt;-- Back to Search Page </a>
+
+
+        @foreach (var item in Model)
+        {
+
+            <div class="card p-2 shadow bg-body-tertiary rounded mb-3">
+                <div class="card-body">
+                    <h5 class="card-title text-primary fs-3">@(item.Service.Name)</h5>
+                    <div class="container fs-6 p-0">
+
+                        <div class="row my-2">
+
+                            <div class="col fw-bold">
+                                Hospital:
+                            </div>
+
+                            <div class="col">
+                                @(item.Hospital.Name)
+                            </div>
+                        
+                            <div class="col fw-bold">
+                            Phone:
+                            </div>
+
+                            <div class="col">
+                                @(item.Hospital.Phone)
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="row my-2">
+
+                            <div class="col fw-bold">
+                                Email: 
+                            </div>
+
+                            <div class="col">
+                                @(item.Hospital.Email)
+                            </div>
+
+                            <div class="col fw-bold">
+                                Fax:
+                            </div>
+
+                            <div class="col">
+                                @(item.Hospital.Phone)
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+</div>
