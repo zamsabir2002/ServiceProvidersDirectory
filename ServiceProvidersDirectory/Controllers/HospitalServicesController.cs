@@ -23,6 +23,7 @@ namespace ServiceProvidersDirectory.Controllers
 
         // GET: HospitalServices
         [Route("HospitalServices/{hospitalId:guid}")]
+        [Authorize (Policy = "HospitalAdminOrHigher")]
         public async Task<IActionResult> Index(Guid? hospitalId)
         {
             if (hospitalId == null)
@@ -30,7 +31,25 @@ namespace ServiceProvidersDirectory.Controllers
                 return NotFound();
             }
 
-            var applicationDbContext = _context.HospitalServices.Include(h => h.Hospital).Include(h => h.Service).Include(h => h.UpdatedBy).Where(hs => hs.HospitalId == hospitalId);
+            var roleId = User.FindFirstValue("RoleId");
+
+            var userHospitalId = User.FindFirstValue("HospitalId");
+
+            IQueryable<HospitalService> applicationDbContext;
+
+            if (roleId == "1")
+            {
+                applicationDbContext = _context.HospitalServices.Include(h => h.Hospital).Include(h => h.Service).Include(h => h.UpdatedBy).Where(hs => hs.HospitalId == hospitalId);
+                //var applicationDbContext = _context.HospitalServices.Include(h => h.Hospital).Include(h => h.Service).Include(h => h.UpdatedBy);
+                ViewData["HospitalId"] = hospitalId;
+
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else if(userHospitalId != hospitalId.ToString())
+            {
+                return Unauthorized();
+            }
+            applicationDbContext = _context.HospitalServices.Include(h => h.Hospital).Include(h => h.Service).Include(h => h.UpdatedBy).Where(hs => hs.HospitalId == hospitalId);
             ViewData["HospitalId"] = hospitalId;
             //var applicationDbContext = _context.HospitalServices.Include(h => h.Hospital).Include(h => h.Service).Include(h => h.UpdatedBy);
 
@@ -50,10 +69,30 @@ namespace ServiceProvidersDirectory.Controllers
                 .Include(h => h.Service)
                 .Include(h => h.UpdatedBy)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (hospitalService == null)
             {
                 return NotFound();
             }
+
+            var roleId = User.FindFirstValue("RoleId");
+
+            var userHospitalId = User.FindFirstValue("HospitalId");
+
+            if (roleId != "1" && userHospitalId != hospitalService.HospitalId.ToString())
+            {
+                return Unauthorized();
+            }
+
+            //var hospitalService = await _context.HospitalServices
+            //    .Include(h => h.Hospital)
+            //    .Include(h => h.Service)
+            //    .Include(h => h.UpdatedBy)
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+            //if (hospitalService == null)
+            //{
+            //    return NotFound();
+            //}
 
             return View(hospitalService);
         }
@@ -62,6 +101,15 @@ namespace ServiceProvidersDirectory.Controllers
         [Route("Add/{hospitalId:guid}")]
         public IActionResult Add(Guid? hospitalId)
         {
+            var roleId = User.FindFirstValue("RoleId");
+
+            var userHospitalId = User.FindFirstValue("HospitalId");
+
+            if (roleId != "1" && userHospitalId != hospitalId.ToString())
+            {
+                return Unauthorized();
+            }
+
             var name = _context.Hospitals.Where(hs => hs.Id == hospitalId)
                 .Select(h =>
                     new
