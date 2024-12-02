@@ -1,5 +1,7 @@
 # ServiceProvidersDirectory
 
-SuperAdmin Credentials:
-email: admin@cardinal.com
-password: 123456789
+### SuperAdmin Credentials:
+
+    Email: admin@cardinal.com
+    
+    Password: 123456789
