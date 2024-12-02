@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ServiceProvidersDirectory.Models;
 
@@ -172,6 +173,21 @@ namespace ServiceProvidersDirectory.Data
             modelBuilder.Entity<Section>().HasData(
                 new Section { Id = 1, Name = "Service" },
                 new Section { Id = 2, Name = "Information" }
+            );
+            Guid id = Guid.Parse("2FACED7C-47A3-45A7-911E-5DFD1C6C6EA4");
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = Guid.Parse("11111111-1111-1111-1111-111111111111"), // Static GUID
+                    Name = "SuperAdmin",
+                    Email = "admin@cardinal.com",
+                    Password = "AQAAAAIAAYagAAAAEAsJ0w2Ro6mK3B3aegDOCAnpaSeT82LvFjDugONFzeN8V0BQF3j7raWQCsXcSjBBhw==", // Pre-hashed password
+                    Phone = "21312312",
+                    RoleId = 1,
+                    IsActive = true,
+                    CreatedAt = DateTime.Parse("2024-01-01T00:00:00Z"), // Static datetime
+                    UpdatedAt = DateTime.Parse("2024-01-01T00:00:00Z")  // Static datetime
+                }
             );
         }
     }

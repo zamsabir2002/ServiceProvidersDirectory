@@ -15,8 +15,8 @@ namespace ServiceProvidersDirectory.Models
         public required string Password { get; set; }
 
         [ForeignKey("RoleId")]
-        public required UserRole Role { get; set; }
-        public required int RoleId { get; set; }
+        public UserRole? Role { get; set; }
+        public int? RoleId { get; set; }
 
 
         public required string Phone { get; set;}
